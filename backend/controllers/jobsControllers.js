@@ -37,7 +37,7 @@ const createNewJob = asyncHandler(async (req, res) => {
   //     "timescale": 0
   // }
 
-  const {
+  let {
     itemDescription,
     workRequired,
     quoteRequired,
@@ -85,6 +85,19 @@ const createNewJob = asyncHandler(async (req, res) => {
 
   jobNum = jobs.length + 450;
 
+  if (price === "") {
+    price = 0;
+  }
+
+  if (dueDate) {
+    const date = new Date();
+
+    const addWeeks = (date, weeks) => {
+      date.setDate(date.getDate() + 7 * weeks);
+      return date;
+    };
+    const dueDate = addWeeks(date, timescale);
+  }
   const jobObject = {
     id: jobNum,
     itemDescription,
@@ -106,8 +119,11 @@ const createNewJob = asyncHandler(async (req, res) => {
     materialsRequired,
     materialsSupplier,
     materialsNotes,
+    materialsOrdered: "false",
     timescale,
+    dueDate,
     completed: "false",
+    collected: "false",
   };
 
   const job = await Job.create(jobObject);
@@ -145,18 +161,14 @@ const updateJob = asyncHandler(async (req, res) => {
     materialsRequired,
     materialsSupplier,
     materialsNotes,
+    materialsOrdered,
     timescale,
+    dueDate,
     completed,
+    collected,
   } = req.body;
 
-  if (
-    !itemDescription ||
-    !workRequired ||
-    !price ||
-    !fName ||
-    !lName ||
-    !phoneNumber
-  ) {
+  if (!itemDescription || !workRequired || !fName || !lName || !phoneNumber) {
     return res
       .status(400)
       .json({ message: "All fields except password are required" });
@@ -168,10 +180,11 @@ const updateJob = asyncHandler(async (req, res) => {
     return res.status(400).json({ message: "job not found" });
   }
 
-  if (completed) {
-    job.completed = completed;
-  }
-
+  // if (completed) {
+  //   job.completed = completed;
+  // }
+  job.collected = collected;
+  job.completed = completed;
   job.itemDescription = itemDescription;
   job.workRequired = workRequired;
   job.quoteRequired = quoteRequired;
@@ -191,7 +204,9 @@ const updateJob = asyncHandler(async (req, res) => {
   job.materialsRequired = materialsRequired;
   job.materialsSupplier = materialsSupplier;
   job.materialsNotes = materialsNotes;
+  job.materialsOrdered = materialsOrdered;
   job.timescale = timescale;
+  job.dueDate = dueDate;
 
   const updatedJob = await job.save();
 

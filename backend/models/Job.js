@@ -19,7 +19,7 @@ const jobSchema = new mongoose.Schema(
     },
     quoteRequired: {
       type: Boolean,
-      // required: true,
+      default: false,
     },
     quoteDetails: {
       type: String,
@@ -43,7 +43,7 @@ const jobSchema = new mongoose.Schema(
     },
     addressRequired: {
       type: Boolean,
-      // required: true,
+      default: false,
     },
     address: {
       type: String,
@@ -51,9 +51,9 @@ const jobSchema = new mongoose.Schema(
     },
     additionalNotesRequired: {
       type: Boolean,
-      // required: true,
+      default: false,
     },
-    additonalNotes: {
+    additionalNotes: {
       type: String,
       required: false,
     },
@@ -67,7 +67,7 @@ const jobSchema = new mongoose.Schema(
     },
     depositRequired: {
       type: Boolean,
-      // required: true,
+      default: false,
     },
     depositAmount: {
       type: Number,
@@ -75,7 +75,7 @@ const jobSchema = new mongoose.Schema(
     },
     materialsRequired: {
       type: Boolean,
-      // required: true,
+      default: false,
     },
     materialsSupplier: {
       type: String,
@@ -85,12 +85,23 @@ const jobSchema = new mongoose.Schema(
       type: String,
       required: false,
     },
+    materialsOrdered: {
+      type: Boolean,
+      default: false,
+    },
     timescale: {
       type: Number,
       // required: true,
     },
+    dueDate: {
+      type: Date,
+    },
     //later on would be nice to add a "undergoing work" option to show that the job may be with a member of staff being worked on.
     completed: {
+      type: Boolean,
+      default: false,
+    },
+    collected: {
       type: Boolean,
       default: false,
     },

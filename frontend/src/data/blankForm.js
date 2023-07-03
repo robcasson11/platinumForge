@@ -14,7 +14,7 @@ const blankForm = {
   materialsRequired: false,
   materialsSupplier: "",
   materialsNotes: "",
-  timeScale: "",
+  timescale: "",
 };
 
 export default blankForm;

@@ -22,7 +22,6 @@ const NewItem = ({
   const itemDescriptionRef = useRef();
 
   useEffect(() => {
-    itemDescriptionRef.current.focus();
     checkBoxRef.current.checked = false;
     checkBoxRefDeposit.current.checked = false;
     checkBoxRefDamaged.current.checked = false;
@@ -232,9 +231,9 @@ const NewItem = ({
           )}
           <br />
           <Input
-            name="timeScale"
+            name="timescale"
             title="Time Scale"
-            value={job.timeScale}
+            value={job.timescale}
             type="number"
             handleInputChange={handleInputChange}
           />

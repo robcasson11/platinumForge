@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
-import NewItem from "./form/newItem";
-import NewUser from "./form/userDetails";
-import api from "../api/jobs";
+import NewItem from "./newItem";
+import NewUser from "./userDetails";
+import api from "../../api/jobs";
+import { useNavigate } from "react-router-dom";
 
 function Form() {
   const [jobList, setJobList] = useState([]);
@@ -10,11 +11,13 @@ function Form() {
   const [userFormComplete, setUserFormComplete] = useState(false);
   const [data, setData] = useState();
   const [formComplete, setFormComplete] = useState(false);
+  const navigate = useNavigate();
 
   const addData = () => {
     const mergedData = { ...userList, ...jobList };
     setData(mergedData);
     setFormComplete(true);
+    navigate("/");
   };
 
   const addNewData = () => {
