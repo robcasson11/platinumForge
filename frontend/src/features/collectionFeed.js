@@ -1,49 +1,35 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { MdDone } from "react-icons/md";
 
-const CollectionFeed = ({ jobs, handleDelete, handleComplete }) => {
+const CollectionFeed = ({
+  jobs,
+  handleCollected,
+  handleComplete,
+  handleGoAhead,
+}) => {
   const navigate = useNavigate();
-  const [date] = new Date().toISOString().split("T");
 
-  const collectionsList = jobs
-    .filter((job) => {
-      return job.materialsRequired;
-    })
-    .map((job) => {
-      const supplier = job.materialsSupplier.toLowerCase();
-      let orderTimeScale = 0;
-      if (supplier === "supplier1") {
-        orderTimeScale = 2;
-      }
-      if (supplier === "supplier2") {
-        orderTimeScale = 4;
-      }
-      const [dueDate] = new Date(
-        new Date().setDate(new Date(job.dueDate).getDate())
-      )
-        .toISOString()
-        .split("T");
-      const [orderDate] = new Date(
-        new Date().setDate(new Date(job.dueDate).getDate() - orderTimeScale)
-      )
-        .toISOString()
-        .split("T");
-      const newJob = { ...job, date, dueDate, orderDate };
-      return newJob;
-    });
+  const collectionsList = jobs.filter((job) => {
+    return (
+      !job.collected & (job.quoteRequired === true) & job.quoted ||
+      job.completed
+    );
+  });
 
-  const deleteAndRedirect = (id) => {
-    handleDelete(id);
+  const collectedAndRedirect = (id) => {
+    handleCollected(id);
     navigate("/");
   };
 
-  const checkAndRedirect = (id) => {
-    handleComplete(id);
+  const goAheadAndRedirect = (id) => {
+    handleGoAhead(id);
     navigate("/");
   };
 
   return (
     <section className="quotes-feed">
+      <h3>Collection Feed</h3>
       {collectionsList[0] ? (
         <table>
           <thead>
@@ -51,7 +37,7 @@ const CollectionFeed = ({ jobs, handleDelete, handleComplete }) => {
               <th>Job</th>
               <th>Customer Name</th>
               <th>Due Date</th>
-              <th>Completed</th>
+              <th>Go Ahead</th>
               <th>Collected</th>
             </tr>
           </thead>
@@ -71,19 +57,18 @@ const CollectionFeed = ({ jobs, handleDelete, handleComplete }) => {
                     <p>{job.workRequired}</p>
                   </td>
                   <td>
-                    <input
-                      name="completed"
-                      title="Completed"
-                      value={job.completed}
-                      type="checkBox"
-                      checked={job.completed}
-                      onChange={() => checkAndRedirect(job._id)}
-                    ></input>
+                    {!job.completed && (
+                      <button onClick={() => goAheadAndRedirect(job._id)}>
+                        <MdDone />
+                      </button>
+                    )}
                   </td>
                   <td>
-                    <button onClick={() => deleteAndRedirect(job._id)}>
-                      delete job
-                    </button>
+                    {job.completed && (
+                      <button onClick={() => collectedAndRedirect(job._id)}>
+                        <MdDone />
+                      </button>
+                    )}
                   </td>
                 </tr>
               );
@@ -91,7 +76,7 @@ const CollectionFeed = ({ jobs, handleDelete, handleComplete }) => {
           </tbody>
         </table>
       ) : (
-        <p>No Orders</p>
+        <p>No Collections Today</p>
       )}
     </section>
   );

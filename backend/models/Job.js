@@ -101,6 +101,10 @@ const jobSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    quoted: {
+      type: Boolean,
+      default: false,
+    },
     collected: {
       type: Boolean,
       default: false,

@@ -38,6 +38,8 @@ const createNewJob = asyncHandler(async (req, res) => {
   // }
 
   let {
+    jobNum,
+    dueDate,
     itemDescription,
     workRequired,
     quoteRequired,
@@ -58,6 +60,8 @@ const createNewJob = asyncHandler(async (req, res) => {
     materialsSupplier,
     materialsNotes,
     timescale,
+    completed,
+    quoted,
   } = req.body;
   //could put in an if (!itemDecription || workReuired || pri.....)... ect to check that all feilds required are filled in however the form in the frontend has "required" in the inputs so might not be needed....
 
@@ -77,27 +81,42 @@ const createNewJob = asyncHandler(async (req, res) => {
 
   const jobs = await Job.find().lean();
 
-  let jobNum = "";
+  // if jobNum is undefined statment only needed for DEVELOPEMENT. Delete before deploy.
+  if (jobNum === undefined) {
+    if (!jobs?.length) {
+      jobNum = 450;
+    }
 
-  if (!jobs?.length) {
-    jobNum = 450;
+    jobNum = jobs.length + 450;
+
+    if (price === "") {
+      price = 0;
+    }
   }
-
-  jobNum = jobs.length + 450;
 
   if (price === "") {
     price = 0;
   }
 
-  if (dueDate) {
-    const date = new Date();
+  const date = new Date();
 
-    const addWeeks = (date, weeks) => {
-      date.setDate(date.getDate() + 7 * weeks);
-      return date;
-    };
-    const dueDate = addWeeks(date, timescale);
+  const addWeeks = (date, weeks) => {
+    date.setDate(date.getDate() + 7 * weeks);
+    return date;
+  };
+
+  if (dueDate === undefined) {
+    dueDate = addWeeks(date, timescale);
   }
+
+  if (completed === undefined) {
+    completed = false;
+  }
+
+  if (quoted === undefined) {
+    quoted = false;
+  }
+
   const jobObject = {
     id: jobNum,
     itemDescription,
@@ -122,7 +141,8 @@ const createNewJob = asyncHandler(async (req, res) => {
     materialsOrdered: "false",
     timescale,
     dueDate,
-    completed: "false",
+    completed,
+    quoted,
     collected: "false",
   };
 
@@ -165,6 +185,7 @@ const updateJob = asyncHandler(async (req, res) => {
     timescale,
     dueDate,
     completed,
+    quoted,
     collected,
   } = req.body;
 
@@ -184,7 +205,7 @@ const updateJob = asyncHandler(async (req, res) => {
   //   job.completed = completed;
   // }
   job.collected = collected;
-  job.completed = completed;
+  (job.quoted = quoted), (job.completed = completed);
   job.itemDescription = itemDescription;
   job.workRequired = workRequired;
   job.quoteRequired = quoteRequired;
@@ -219,7 +240,8 @@ const deleteJob = asyncHandler(async (req, res) => {
   const { _id } = req.body;
 
   if (!_id) {
-    return res.status(400).json({ message: "User id required" });
+    await Job.deleteMany({});
+    return;
   }
 
   const job = await Job.findById(_id).exec();

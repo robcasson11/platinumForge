@@ -2,12 +2,16 @@ import { useState, useEffect } from "react";
 import React from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 import api from "./api/jobs";
+import HomePage from "./features/homePage";
 import Form from "./features/form/Form";
-import Home from "./features/Home";
 import JobPage from "./features/jobPage";
+import QuotePage from "./features/quotePage";
+import DashBoard from "./features/dashBoard";
 
 function App() {
   const [jobs, setJobs] = useState([]);
+  const [editWorkRequired, setEditWorkRequired] = useState();
+  const [editPrice, setEditPrice] = useState("");
   const [search, setSearch] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const location = useLocation();
@@ -18,6 +22,9 @@ function App() {
         const response = await api.get("/jobs");
         setJobs(response.data);
       } catch (err) {
+        if (err.response.status === 400) {
+          return;
+        }
         if (err.response) {
           console.log(err);
         } else {
@@ -40,11 +47,9 @@ function App() {
   }, [jobs, search]);
 
   const handleComplete = async (_id) => {
-    console.log("clicked");
     const toBeUpdatedJob = jobs.filter((job) => job._id === _id);
     toBeUpdatedJob[0].completed = !toBeUpdatedJob[0].completed;
     const data = toBeUpdatedJob[0];
-    console.log(data);
     try {
       await api.patch("/jobs", data);
       setSearch("");
@@ -55,11 +60,9 @@ function App() {
   };
 
   const handleMaterialsOrdered = async (_id) => {
-    console.log("clicked");
     const toBeUpdatedJob = jobs.filter((job) => job._id === _id);
     toBeUpdatedJob[0].materialsOrdered = !toBeUpdatedJob[0].materialsOrdered;
     const data = toBeUpdatedJob[0];
-    console.log(data);
     try {
       await api.patch("/jobs", data);
       setSearch("");
@@ -70,11 +73,9 @@ function App() {
   };
 
   const handleCollected = async (_id) => {
-    console.log("clicked");
     const toBeUpdatedJob = jobs.filter((job) => job._id === _id);
     toBeUpdatedJob[0].collected = !toBeUpdatedJob[0].collected;
     const data = toBeUpdatedJob[0];
-    console.log(data);
     try {
       await api.patch("/jobs", data);
       setSearch("");
@@ -84,6 +85,7 @@ function App() {
     }
   };
 
+  // Handle delete is only used in development... romeve before deploying
   const handleDelete = async (_id) => {
     try {
       await api.delete("/jobs", { data: { _id: _id } });
@@ -97,18 +99,50 @@ function App() {
     }
   };
 
+  const handleEdit = async (_id) => {
+    const toBeUpdatedJob = jobs.filter((job) => job._id === _id);
+    toBeUpdatedJob[0].workRequired = editWorkRequired;
+    toBeUpdatedJob[0].price = editPrice;
+    toBeUpdatedJob[0].quoted = true;
+    const data = toBeUpdatedJob[0];
+    try {
+      await api.patch("/jobs", data);
+      setSearch("");
+      setSearchResults([]);
+    } catch (err) {
+      console.log(`Error with handle edit : ${err}`);
+    }
+  };
+
+  const handleGoAhead = async (_id) => {
+    const toBeUpdatedJob = jobs.filter((job) => job._id === _id);
+    toBeUpdatedJob[0].quoteRequired = false;
+    const data = toBeUpdatedJob[0];
+    try {
+      await api.patch("/jobs", data);
+      setSearch("");
+      setSearchResults([]);
+    } catch (err) {
+      console.log(`Error with handle edit : ${err}`);
+    }
+  };
+
   return (
     <Routes>
+      <Route index element={<HomePage />} />
       <Route
-        index
+        path="dashBoard"
         element={
-          <Home
+          <DashBoard
             jobs={jobs}
+            setJobs={setJobs}
             search={search}
             setSearch={setSearch}
             searchResults={searchResults}
             handleCollected={handleCollected}
             handleComplete={handleComplete}
+            handleMaterialsOrdered={handleMaterialsOrdered}
+            handleGoAhead={handleGoAhead}
           />
         }
       />
@@ -124,7 +158,30 @@ function App() {
               setSearchResults={setSearchResults}
               handleCollected={handleCollected}
               handleComplete={handleComplete}
+              handleDelete={handleDelete}
               handleMaterialsOrdered={handleMaterialsOrdered}
+            />
+          }
+        />
+      </Route>
+      <Route path="quotePage">
+        <Route
+          path=":id"
+          element={
+            <QuotePage
+              jobs={jobs}
+              setJobs={setJobs}
+              setSearch={setSearch}
+              setSearchResults={setSearchResults}
+              handleCollected={handleCollected}
+              handleComplete={handleComplete}
+              handleDelete={handleDelete}
+              handleMaterialsOrdered={handleMaterialsOrdered}
+              handleEdit={handleEdit}
+              editPrice={editPrice}
+              editWorkRequired={editWorkRequired}
+              setEditPrice={setEditPrice}
+              setEditWorkRequired={setEditWorkRequired}
             />
           }
         />

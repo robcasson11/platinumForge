@@ -56,7 +56,7 @@ const NewUser = ({
   return (
     <form>
       <div
-        className="userForm"
+        className="userForm form-element"
         style={userFormComplete ? { display: "none" } : null}
       >
         <Input

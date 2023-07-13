@@ -14,6 +14,7 @@ function Form() {
   const navigate = useNavigate();
 
   const addData = () => {
+    console.log(userList.jobNum);
     const mergedData = { ...userList, ...jobList };
     setData(mergedData);
     setFormComplete(true);

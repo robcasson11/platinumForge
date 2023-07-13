@@ -12,7 +12,7 @@ const WorkFeed = ({ jobs, handleCollected, handleComplete, search }) => {
   const filteredJobs = jobs
     .filter((job) => {
       const [dueDate] = job.dueDate.split("T");
-      return dueDate === date && !job.completed;
+      return dueDate === date && !job.completed && job.quoted;
     })
     .map((job) => {
       return job;

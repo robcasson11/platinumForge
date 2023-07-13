@@ -7,6 +7,7 @@ const JobPage = ({
   handleComplete,
   handleMaterialsOrdered,
   setSearch,
+  handleDelete,
 }) => {
   const navigate = useNavigate();
   const { id } = useParams();
@@ -144,6 +145,12 @@ const JobPage = ({
               type="checkBox"
               checked={job.collected}
               onChange={() => collectedAndRedirect(job._id)}
+            ></input>
+            {/* remove delete button after depoly. only needed for developement */}
+            <br />
+            <input
+              type="checkBox"
+              onChange={() => handleDelete(job._id)}
             ></input>
           </div>
           <br />
