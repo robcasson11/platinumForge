@@ -60,13 +60,10 @@ const NewItem = ({
   };
 
   return (
-    <form>
-      <div
-        className="itemForm"
-        style={itemFormComplete ? { display: "none" } : null}
-      >
+    <form style={itemFormComplete ? { display: "none" } : null}>
+      <div className="form-element" style={page1 ? { display: "none" } : null}>
         {/* page 1 */}
-        <div style={page1 ? { display: "none" } : null}>
+        <div className="itemForm form-left">
           <Input
             name="itemDescription"
             title="Item Description"
@@ -124,8 +121,13 @@ const NewItem = ({
             Next
           </button>
         </div>
+        <div className="form-right">
+          <p>Please provide information on the item.</p>
+        </div>
+      </div>
+      <div className="form-element" style={page2 ? { display: "none" } : null}>
         {/* page 2 */}
-        <div style={page2 ? { display: "none" } : null}>
+        <div className="form-left">
           <Input
             name="additionalNotesRequired"
             title="Additional Notes"
@@ -199,8 +201,14 @@ const NewItem = ({
             Next
           </button>
         </div>
+        <div className="form-right">
+          <p>Add any additional information if necessary</p>
+        </div>
+      </div>
+      <div className="form-element" style={page3 ? { display: "none" } : null}>
         {/* page 3*/}
-        <div style={page3 ? { display: "none" } : null}>
+
+        <div className="form-left">
           <Input
             name="materialsRequired"
             title="Order Materials"
@@ -238,15 +246,22 @@ const NewItem = ({
             handleInputChange={handleInputChange}
           />
           <br />
+          {/* end of form */}
+          <button
+            type="button"
+            style={page3 ? { display: "none" } : null}
+            onClick={updateItem}
+          >
+            Next
+          </button>
         </div>
-        {/* end of form */}
-        <button
-          type="button"
-          style={page3 ? { display: "none" } : null}
-          onClick={updateItem}
-        >
-          Next
-        </button>
+        <div className="form-right">
+          <p>
+            Please provide information on any materials that need ordering and
+            where they need ordering from. Also please provide a timescale in
+            weeks.
+          </p>
+        </div>
       </div>
     </form>
   );

@@ -2,33 +2,14 @@ function randomNumber(int) {
   return Math.floor(Math.random() * int);
 }
 
-const today = new Date();
-
-function getDueDate() {
-  const date = new Date();
-  const randomDay = [0, 1, 3, 5];
-  const dueDate = new Date(
-    date.setDate(date.getDate() + randomDay[randomNumber(4)])
-  );
-  return dueDate;
-}
-
 const randomBoolean = [true, false];
-
-// function futureDay(int) {
-//   const date = new Date();
-//   date.setDate(date.getDate() + int);
-//   return date;
-// }
-
-console.log(today, getDueDate());
 
 const dataObject = [];
 for (let i = 0; i < 20; i++) {
   const randomTrueOrFalse = randomBoolean[randomNumber(2)];
   const date = new Date();
-  const randomDay = [0, 1, 3, 5];
-  const randomDayNum = randomDay[randomNumber(4)];
+  const randomDay = [0, 1, 0, 1, 3, 5];
+  const randomDayNum = randomDay[randomNumber(6)];
   const dueDate = new Date(date.setDate(date.getDate() + randomDayNum));
   dataObject[i] = {
     dueDate: dueDate,

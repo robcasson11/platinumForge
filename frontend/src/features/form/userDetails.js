@@ -54,11 +54,11 @@ const NewUser = ({
   };
 
   return (
-    <form>
-      <div
-        className="userForm form-element"
-        style={userFormComplete ? { display: "none" } : null}
-      >
+    <div
+      className="form-element"
+      style={userFormComplete ? { display: "none" } : null}
+    >
+      <form className="userForm form-left">
         <Input
           name="fName"
           title="First Name"
@@ -67,7 +67,6 @@ const NewUser = ({
           type="text"
           handleInputChange={handleInputChange}
         />
-        <br />
         <Input
           name="lName"
           title="Last Name"
@@ -75,7 +74,6 @@ const NewUser = ({
           type="text"
           handleInputChange={handleInputChange}
         />
-        <br />
         <Input
           name="phoneNumber"
           title="Phone Number"
@@ -83,7 +81,6 @@ const NewUser = ({
           type="text"
           handleInputChange={handleInputChange}
         />
-        <br />
         <Input
           name="addressRequired"
           title="Address"
@@ -93,7 +90,6 @@ const NewUser = ({
         />
         {user.addressRequired === true && (
           <>
-            <br />
             <Input
               name="address"
               title="Adrress"
@@ -103,12 +99,17 @@ const NewUser = ({
             />
           </>
         )}
-        <br />
         <button type="button" onClick={nextPage}>
           Next
         </button>
+      </form>
+      <div
+        className="form-right"
+        style={userFormComplete ? { display: "none" } : null}
+      >
+        <p>Please provide this customer information.</p>
       </div>
-    </form>
+    </div>
   );
 };
 
