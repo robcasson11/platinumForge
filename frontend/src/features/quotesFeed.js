@@ -39,7 +39,7 @@ const QuotesFeed = ({ jobs }) => {
                     <p>{job.workRequired}</p>
                   </td>
                   <td>
-                    <Link to={`/quotePage/${job.id}`}>Q</Link>
+                    <Link to={`quotePage/${job.id}`}>Q</Link>
                   </td>
                 </tr>
               );

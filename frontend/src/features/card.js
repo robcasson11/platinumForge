@@ -8,7 +8,7 @@ const Card = ({ job }) => {
       <p>{job.fName}</p>
       <p>{job.lName}</p>
       <p>{job.itemDescription}</p>
-      <Link to={`/jobPage/${job.id}`}>
+      <Link to={`jobPage/${job.id}`}>
         <button>View Job</button>
       </Link>
       {job.completed ? <p>completed</p> : <p>not completed</p>}

@@ -47,7 +47,7 @@ const WorkFeed = ({ jobs, handleCollected, handleComplete, search }) => {
               return (
                 <tr key={job.id}>
                   <td>
-                    <Link to={`/jobPage/${job.id}`}>
+                    <Link to={`jobPage/${job.id}`}>
                       <p>{job.id}</p>
                     </Link>
                   </td>

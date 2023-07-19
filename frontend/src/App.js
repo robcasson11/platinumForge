@@ -2,11 +2,11 @@ import { useState, useEffect } from "react";
 import React from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 import api from "./api/jobs";
+import Layout from "./features/layout";
 import HomePage from "./features/homePage";
 import Form from "./features/form/Form";
 import JobPage from "./features/jobPage";
 import QuotePage from "./features/quotePage";
-import DashBoard from "./features/dashBoard";
 
 function App() {
   const [jobs, setJobs] = useState([]);
@@ -130,10 +130,11 @@ function App() {
   return (
     <Routes>
       <Route index element={<HomePage />} />
+      <Route path="form" element={<Form />} />
       <Route
         path="dashBoard"
         element={
-          <DashBoard
+          <Layout
             jobs={jobs}
             setJobs={setJobs}
             search={search}
@@ -145,46 +146,47 @@ function App() {
             handleGoAhead={handleGoAhead}
           />
         }
-      />
-      <Route path="form" element={<Form />} />
-      <Route path="jobPage">
-        <Route
-          path=":id"
-          element={
-            <JobPage
-              jobs={jobs}
-              setJobs={setJobs}
-              setSearch={setSearch}
-              setSearchResults={setSearchResults}
-              handleCollected={handleCollected}
-              handleComplete={handleComplete}
-              handleDelete={handleDelete}
-              handleMaterialsOrdered={handleMaterialsOrdered}
-            />
-          }
-        />
-      </Route>
-      <Route path="quotePage">
-        <Route
-          path=":id"
-          element={
-            <QuotePage
-              jobs={jobs}
-              setJobs={setJobs}
-              setSearch={setSearch}
-              setSearchResults={setSearchResults}
-              handleCollected={handleCollected}
-              handleComplete={handleComplete}
-              handleDelete={handleDelete}
-              handleMaterialsOrdered={handleMaterialsOrdered}
-              handleEdit={handleEdit}
-              editPrice={editPrice}
-              editWorkRequired={editWorkRequired}
-              setEditPrice={setEditPrice}
-              setEditWorkRequired={setEditWorkRequired}
-            />
-          }
-        />
+      >
+        <Route path="jobPage">
+          <Route
+            path=":id"
+            index
+            element={
+              <JobPage
+                jobs={jobs}
+                setJobs={setJobs}
+                setSearch={setSearch}
+                setSearchResults={setSearchResults}
+                handleCollected={handleCollected}
+                handleComplete={handleComplete}
+                handleDelete={handleDelete}
+                handleMaterialsOrdered={handleMaterialsOrdered}
+              />
+            }
+          />
+        </Route>
+        <Route path="quotePage">
+          <Route
+            path=":id"
+            element={
+              <QuotePage
+                jobs={jobs}
+                setJobs={setJobs}
+                setSearch={setSearch}
+                setSearchResults={setSearchResults}
+                handleCollected={handleCollected}
+                handleComplete={handleComplete}
+                handleDelete={handleDelete}
+                handleMaterialsOrdered={handleMaterialsOrdered}
+                handleEdit={handleEdit}
+                editPrice={editPrice}
+                editWorkRequired={editWorkRequired}
+                setEditPrice={setEditPrice}
+                setEditWorkRequired={setEditWorkRequired}
+              />
+            }
+          />
+        </Route>
       </Route>
     </Routes>
   );

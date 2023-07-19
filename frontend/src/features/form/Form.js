@@ -63,14 +63,18 @@ function Form() {
         )}
       </div>
       {itemFormComplete && userFormComplete && jobList && (
-        <>
-          <button type="button" onClick={addNewData}>
-            Add Another Item
-          </button>
-          <button type="button" onClick={addData}>
-            Finish
-          </button>
-        </>
+        <div className="form-element home-page">
+          <div className="btn">
+            <button className="new-item-btn" type="button" onClick={addNewData}>
+              Add Another Item
+            </button>
+          </div>
+          <div className="btn">
+            <button className="dash-board-btn" type="button" onClick={addData}>
+              Finish
+            </button>
+          </div>
+        </div>
       )}
       {/* <div>
         {data && (

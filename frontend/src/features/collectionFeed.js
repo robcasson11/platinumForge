@@ -46,7 +46,7 @@ const CollectionFeed = ({
               return (
                 <tr key={job.id}>
                   <td>
-                    <Link to={`/jobPage/${job.id}`}>
+                    <Link to={`jobPage/${job.id}`}>
                       <p>{job.id}</p>
                     </Link>
                   </td>
