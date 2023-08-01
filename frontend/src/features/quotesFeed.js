@@ -1,7 +1,11 @@
 import React from "react";
+import { useContext } from "react";
+import DataContext from "../context/DataContext";
 import { Link } from "react-router-dom";
 
-const QuotesFeed = ({ quoteButton, search, jobs }) => {
+const QuotesFeed = () => {
+  const { quoteButton, search, jobs } = useContext(DataContext);
+
   const quotesList = jobs
     .filter((job) => {
       return job.quoteRequired && !job.quoted;

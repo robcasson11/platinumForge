@@ -1,15 +1,13 @@
 import React from "react";
+import { useContext } from "react";
+import DataContext from "../context/DataContext";
 import { Link, useNavigate } from "react-router-dom";
 import { MdDone } from "react-icons/md";
 
-const CollectionFeed = ({
-  collectButton,
-  search,
-  jobs,
-  handleCollected,
-  handleComplete,
-  handleGoAhead,
-}) => {
+const CollectionFeed = () => {
+  const { collectButton, search, jobs, handleCollected, handleGoAhead } =
+    useContext(DataContext);
+
   const navigate = useNavigate();
 
   const collectionsList = jobs.filter((job) => {

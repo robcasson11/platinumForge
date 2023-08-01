@@ -1,15 +1,13 @@
 import { React } from "react";
+import { useContext } from "react";
+import DataContext from "../context/DataContext";
 import { useNavigate, Link } from "react-router-dom";
 import { MdDone } from "react-icons/md";
 
-const WorkFeed = ({
-  workButton,
-  jobs,
-  handleCollected,
-  handleComplete,
-  search,
-}) => {
-  console.log(workButton);
+const WorkFeed = () => {
+  const { workButton, jobs, handleCollected, handleComplete, search } =
+    useContext(DataContext);
+
   const navigate = useNavigate();
 
   const [date] = new Date(new Date().setDate(new Date().getDate() + 1))

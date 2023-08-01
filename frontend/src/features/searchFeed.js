@@ -1,14 +1,13 @@
 import React from "react";
+import { useContext } from "react";
+import DataContext from "../context/DataContext";
 import { useNavigate, Link } from "react-router-dom";
 import { MdDone } from "react-icons/md";
 
-const SearchFeed = ({
-  search,
-  setSearch,
-  searchResults,
-  handleCollected,
-  handleComplete,
-}) => {
+const SearchFeed = () => {
+  const { search, setSearch, searchResults, handleCollected, handleComplete } =
+    useContext(DataContext);
+
   const navigate = useNavigate();
 
   const collectedAndRedirect = (id) => {

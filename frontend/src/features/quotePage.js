@@ -1,19 +1,24 @@
 import React from "react";
+import { useContext } from "react";
+import DataContext from "../context/DataContext";
 import { useEffect } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 
-const QuotePage = ({
-  jobs,
-  handleEdit,
-  setSearch,
-  setEditPrice,
-  setEditWorkRequired,
-  editWorkRequired,
-  editPrice,
-}) => {
+const QuotePage = () => {
+  const {
+    jobs,
+    handleEdit,
+    setSearch,
+    setEditPrice,
+    setEditWorkRequired,
+    editWorkRequired,
+    editPrice,
+    setSmallScreen,
+  } = useContext(DataContext);
   const { id } = useParams();
   const job = jobs.find((job) => job.id.toString() === id);
   const navigate = useNavigate();
+  setSmallScreen(true);
 
   useEffect(() => {
     if (job) {
@@ -29,6 +34,15 @@ const QuotePage = ({
 
   return (
     <div className="quote-page main-content">
+      <Link className="close-button" reloadDocument to={"/dashBoard"}>
+        <button
+          onClick={() => {
+            setSearch("");
+          }}
+        >
+          Close
+        </button>
+      </Link>
       <h3>{job.id}</h3>
       <div className="main-content-table">
         <p>Name</p>
@@ -65,15 +79,6 @@ const QuotePage = ({
             >
               Submit
             </button>
-            <Link to={"/dashBoard"}>
-              <button
-                onClick={() => {
-                  setSearch("");
-                }}
-              >
-                Close
-              </button>
-            </Link>
           </div>
         </form>
       </div>

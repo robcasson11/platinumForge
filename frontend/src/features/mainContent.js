@@ -1,9 +1,13 @@
 import React from "react";
+import { useContext } from "react";
+import DataContext from "../context/DataContext";
 import { Link } from "react-router-dom";
 import DevData from "../data/devData";
 import api from "../api/jobs";
 
-const MainContent = ({ search }) => {
+const MainContent = () => {
+  const { search } = useContext(DataContext);
+
   const populateDatabase = async () => {
     clearDatabase();
     DevData.map(async (data) => {
@@ -12,7 +16,6 @@ const MainContent = ({ search }) => {
       } catch (err) {
         console.log(`Error : ${err.message}`);
       }
-      console.log(data.jobNum);
     });
   };
 
@@ -32,7 +35,7 @@ const MainContent = ({ search }) => {
             <Link to={`/form`}>Add New Item</Link>
           </span>
         </button>
-
+        <p style={{ color: "red" }}>DEV BUTTONS</p>
         <button
           className="button"
           onClick={() => {

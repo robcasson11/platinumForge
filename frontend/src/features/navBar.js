@@ -1,16 +1,20 @@
 import React from "react";
+import { useContext } from "react";
+import DataContext from "../context/DataContext";
 
-const NavBar = ({
-  workButton,
-  quoteButton,
-  orderButton,
-  collectButton,
-  setWorkButton,
-  setQuoteButton,
-  setOrderButton,
-  setCollectButton,
-  setSmallScreen,
-}) => {
+const NavBar = () => {
+  const {
+    workButton,
+    quoteButton,
+    orderButton,
+    collectButton,
+    setWorkButton,
+    setQuoteButton,
+    setOrderButton,
+    setCollectButton,
+    setSmallScreen,
+  } = useContext(DataContext);
+
   const handleToggle = (e) => {
     e.preventDefault();
     const { id } = e.target;

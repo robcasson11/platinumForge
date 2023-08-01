@@ -1,9 +1,15 @@
 import React from "react";
+import { useContext } from "react";
+import DataContext from "../context/DataContext";
 import { Link, useNavigate } from "react-router-dom";
 import { MdDone } from "react-icons/md";
 
-const OrdersFeed = ({ orderButton, search, jobs, handleMaterialsOrdered }) => {
+const OrdersFeed = () => {
+  const { orderButton, search, jobs, handleMaterialsOrdered } =
+    useContext(DataContext);
+
   const navigate = useNavigate();
+
   const [date] = new Date().toISOString().split("T");
 
   const quotesList = jobs

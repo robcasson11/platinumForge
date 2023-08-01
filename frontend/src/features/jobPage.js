@@ -1,15 +1,18 @@
 import React from "react";
+import { useContext } from "react";
+import DataContext from "../context/DataContext";
 import { useParams, useNavigate, Link } from "react-router-dom";
 
-const JobPage = ({
-  jobs,
-  handleCollected,
-  handleComplete,
-  handleMaterialsOrdered,
-  handleQuoted,
-  setSearch,
-  setSmallScreen,
-}) => {
+const JobPage = () => {
+  const {
+    jobs,
+    handleCollected,
+    handleComplete,
+    handleMaterialsOrdered,
+    handleQuoted,
+    setSearch,
+    setSmallScreen,
+  } = useContext(DataContext);
   const navigate = useNavigate();
   const { id } = useParams();
   const job = jobs.find((job) => job.id.toString() === id);

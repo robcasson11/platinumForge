@@ -242,6 +242,7 @@ const NewItem = ({
             name="timescale"
             title="Time Scale"
             value={job.timescale}
+            placeHolder="In Weeks"
             type="number"
             handleInputChange={handleInputChange}
           />
