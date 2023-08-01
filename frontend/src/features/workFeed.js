@@ -2,7 +2,14 @@ import { React } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { MdDone } from "react-icons/md";
 
-const WorkFeed = ({ jobs, handleCollected, handleComplete, search }) => {
+const WorkFeed = ({
+  workButton,
+  jobs,
+  handleCollected,
+  handleComplete,
+  search,
+}) => {
+  console.log(workButton);
   const navigate = useNavigate();
 
   const [date] = new Date(new Date().setDate(new Date().getDate() + 1))
@@ -12,7 +19,7 @@ const WorkFeed = ({ jobs, handleCollected, handleComplete, search }) => {
   const filteredJobs = jobs
     .filter((job) => {
       const [dueDate] = job.dueDate.split("T");
-      return dueDate === date && !job.completed && job.quoted;
+      return dueDate === date && !job.completed && !job.quoted;
     })
     .map((job) => {
       return job;
@@ -20,16 +27,16 @@ const WorkFeed = ({ jobs, handleCollected, handleComplete, search }) => {
 
   const collectedAndRedirect = (id) => {
     handleCollected(id);
-    navigate("/");
+    navigate("/dashBoard");
   };
 
   const completeAndRedirect = (id) => {
     handleComplete(id);
-    navigate("/");
+    navigate("/dashBoard");
   };
 
   return (
-    <section className={search ? "hidden" : "work-feed"}>
+    <section className={search || !workButton ? "hidden" : "feed"}>
       <h3>Work Feed</h3>
       {filteredJobs[0] ? (
         <table>
@@ -53,13 +60,17 @@ const WorkFeed = ({ jobs, handleCollected, handleComplete, search }) => {
                   </td>
                   <td>
                     <p>
-                      {job.itemDescription.length < 8
-                        ? job.itemDescription
-                        : job.itemDescription.slice(0, 8) + "..."}
+                      <Link to={`jobPage/${job.id}`}>
+                        {job.itemDescription.length < 8
+                          ? job.itemDescription
+                          : job.itemDescription.slice(0, 8) + "..."}
+                      </Link>
                     </p>
                   </td>
                   <td>
-                    <p>{job.workRequired}</p>
+                    <Link to={`jobPage/${job.id}`}>
+                      <p>{job.workRequired}</p>
+                    </Link>
                   </td>
                   <td>
                     <button onClick={() => completeAndRedirect(job._id)}>

@@ -1,14 +1,16 @@
 import React from "react";
-import api from "../api/jobs";
 import SearchFeed from "./searchFeed";
 import WorkFeed from "./workFeed";
 import OrdersFeed from "./ordersFeed";
 import QuotesFeed from "./quotesFeed";
 import CollectionFeed from "./collectionFeed";
-import DevData from "../data/devData";
-import { Link } from "react-router-dom";
+import useWindowSize from "../hooks/useWindowSize";
 
 const DashBoard = ({
+  workButton,
+  quoteButton,
+  orderButton,
+  collectButton,
   jobs,
   handleCollected,
   handleComplete,
@@ -17,83 +19,53 @@ const DashBoard = ({
   search,
   setSearch,
   searchResults,
+  smallScreen,
 }) => {
-  const clearDatabase = async () => {
-    try {
-      await api.delete("/jobs", {});
-    } catch (err) {
-      console.log(`Error with clear database : ${err}`);
-    }
-  };
-
-  const populateDatabase = async () => {
-    clearDatabase();
-    DevData.map(async (data) => {
-      try {
-        await api.post("/jobs", data);
-      } catch (err) {
-        console.log(`Error : ${err.message}`);
-      }
-      console.log(data.jobNum);
-    });
-  };
+  const { width, height } = useWindowSize();
   return (
-    <div className="dashBoard-page">
-      <section>
-        <SearchFeed
-          search={search}
-          setSearch={setSearch}
-          searchResults={searchResults}
-        />
-        <div className={search ? "hidden" : "devButtons"}>
-          <button className="button">
-            <span>
-              <Link to={`/form`}>Add New Item</Link>
-            </span>
-          </button>
-
-          <button
-            className="button"
-            onClick={() => {
-              populateDatabase();
-            }}
-          >
-            <span>Populate database</span>
-          </button>
-          <button
-            className="button"
-            onClick={() => {
-              clearDatabase();
-            }}
-          >
-            <span>Clear database</span>
-          </button>
-        </div>
+    <>
+      <SearchFeed
+        search={search}
+        setSearch={setSearch}
+        searchResults={searchResults}
+        handleCollected={handleCollected}
+        handleComplete={handleComplete}
+      />
+      <section
+        className={
+          smallScreen & (width < 1100 || height < 550) ? "hidden" : "feed"
+        }
+      >
         <WorkFeed
+          workButton={workButton}
           jobs={jobs}
           search={search}
           handleCollected={handleCollected}
           handleComplete={handleComplete}
         />
-      </section>
-      <section>
         <OrdersFeed
+          orderButton={orderButton}
+          search={search}
           jobs={jobs}
           handleMaterialsOrdered={handleMaterialsOrdered}
         />
         <QuotesFeed
+          quoteButton={quoteButton}
+          search={search}
           jobs={jobs}
           handleCollected={handleCollected}
           handleComplete={handleComplete}
         />
         <CollectionFeed
+          collectButton={collectButton}
+          search={search}
           jobs={jobs}
           handleCollected={handleCollected}
           handleComplete={handleComplete}
           handleGoAhead={handleGoAhead}
         />
       </section>
-    </div>
+    </>
   );
 };
 

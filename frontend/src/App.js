@@ -7,6 +7,7 @@ import HomePage from "./features/homePage";
 import Form from "./features/form/Form";
 import JobPage from "./features/jobPage";
 import QuotePage from "./features/quotePage";
+import MainContent from "./features/mainContent";
 
 function App() {
   const [jobs, setJobs] = useState([]);
@@ -15,6 +16,7 @@ function App() {
   const [search, setSearch] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const location = useLocation();
+  const [smallScreen, setSmallScreen] = useState(false);
 
   useEffect(() => {
     const fetchJobs = async () => {
@@ -68,7 +70,7 @@ function App() {
       setSearch("");
       setSearchResults([]);
     } catch (err) {
-      console.log(`Error with handle complete : ${err}`);
+      console.log(`Error with handle materials ordered : ${err}`);
     }
   };
 
@@ -81,7 +83,20 @@ function App() {
       setSearch("");
       setSearchResults([]);
     } catch (err) {
-      console.log(`Error with handle complete : ${err}`);
+      console.log(`Error with handle collected : ${err}`);
+    }
+  };
+
+  const handleQuoted = async (_id) => {
+    const toBeUpdatedJob = jobs.filter((job) => job._id === _id);
+    toBeUpdatedJob[0].quoted = !toBeUpdatedJob[0].quoted;
+    const data = toBeUpdatedJob[0];
+    try {
+      await api.patch("/jobs", data);
+      setSearch("");
+      setSearchResults([]);
+    } catch (err) {
+      console.log(`Error with handle quoted : ${err}`);
     }
   };
 
@@ -144,23 +159,27 @@ function App() {
             handleComplete={handleComplete}
             handleMaterialsOrdered={handleMaterialsOrdered}
             handleGoAhead={handleGoAhead}
+            smallScreen={smallScreen}
+            setSmallScreen={setSmallScreen}
           />
         }
       >
+        <Route index element={<MainContent search={search} />} />
         <Route path="jobPage">
           <Route
             path=":id"
-            index
             element={
               <JobPage
                 jobs={jobs}
                 setJobs={setJobs}
                 setSearch={setSearch}
                 setSearchResults={setSearchResults}
+                setSmallScreen={setSmallScreen}
                 handleCollected={handleCollected}
                 handleComplete={handleComplete}
                 handleDelete={handleDelete}
                 handleMaterialsOrdered={handleMaterialsOrdered}
+                handleQuoted={handleQuoted}
               />
             }
           />

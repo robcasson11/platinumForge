@@ -2,7 +2,7 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { MdDone } from "react-icons/md";
 
-const OrdersFeed = ({ jobs, handleMaterialsOrdered }) => {
+const OrdersFeed = ({ orderButton, search, jobs, handleMaterialsOrdered }) => {
   const navigate = useNavigate();
   const [date] = new Date().toISOString().split("T");
 
@@ -38,18 +38,17 @@ const OrdersFeed = ({ jobs, handleMaterialsOrdered }) => {
 
   const materialsOrderedAndRedirect = (id) => {
     handleMaterialsOrdered(id);
-    navigate("/");
+    navigate("/dashBoard");
   };
 
   return (
-    <section className="quotes-feed">
+    <section className={search || !orderButton ? "hidden" : "feed"}>
       <h3>Orders Feed</h3>
       {quotesList[0] ? (
         <table>
           <thead>
             <tr>
               <th>Job</th>
-              <th>Customer Name</th>
               <th>Materials To Order</th>
               <th>Supplier</th>
               <th>Ordered</th>
@@ -65,13 +64,14 @@ const OrdersFeed = ({ jobs, handleMaterialsOrdered }) => {
                     </Link>
                   </td>
                   <td>
-                    <p>{job.fName}</p>
+                    <Link to={`jobPage/${job.id}`}>
+                      <p>{job.materialsNotes}</p>
+                    </Link>
                   </td>
                   <td>
-                    <p>{job.materialsNotes}</p>
-                  </td>
-                  <td>
-                    <p>{job.materialsSupplier}</p>
+                    <Link to={`jobPage/${job.id}`}>
+                      <p>{job.materialsSupplier}</p>
+                    </Link>
                   </td>
                   <td>
                     <button

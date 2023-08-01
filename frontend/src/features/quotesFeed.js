@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const QuotesFeed = ({ jobs }) => {
+const QuotesFeed = ({ quoteButton, search, jobs }) => {
   const quotesList = jobs
     .filter((job) => {
       return job.quoteRequired && !job.quoted;
@@ -11,7 +11,7 @@ const QuotesFeed = ({ jobs }) => {
     });
 
   return (
-    <section className="quotes-feed">
+    <section className={search || !quoteButton ? "hidden" : "feed"}>
       <h3>Quotes Feed</h3>
       {quotesList[0] ? (
         <table>
@@ -20,7 +20,6 @@ const QuotesFeed = ({ jobs }) => {
               <th>Job</th>
               <th>Customer Name</th>
               <th>Work To Quote For</th>
-              <th>Quoted</th>
             </tr>
           </thead>
           <tbody>
@@ -28,18 +27,19 @@ const QuotesFeed = ({ jobs }) => {
               return (
                 <tr key={job.id}>
                   <td>
-                    <Link to={`/jobPage/${job.id}`}>
+                    <Link to={`quotePage/${job.id}`}>
                       <p>{job.id}</p>
                     </Link>
                   </td>
                   <td>
-                    <p>{job.fName}</p>
+                    <Link to={`quotePage/${job.id}`}>
+                      <p>{job.fName}</p>
+                    </Link>
                   </td>
                   <td>
-                    <p>{job.workRequired}</p>
-                  </td>
-                  <td>
-                    <Link to={`quotePage/${job.id}`}>Q</Link>
+                    <Link to={`quotePage/${job.id}`}>
+                      <p>{job.workRequired}</p>
+                    </Link>
                   </td>
                 </tr>
               );

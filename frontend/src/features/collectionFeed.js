@@ -3,6 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { MdDone } from "react-icons/md";
 
 const CollectionFeed = ({
+  collectButton,
+  search,
   jobs,
   handleCollected,
   handleComplete,
@@ -11,24 +13,21 @@ const CollectionFeed = ({
   const navigate = useNavigate();
 
   const collectionsList = jobs.filter((job) => {
-    return (
-      !job.collected & (job.quoteRequired === true) & job.quoted ||
-      job.completed
-    );
+    return !job.collected & job.quoted || job.completed & !job.collected;
   });
 
   const collectedAndRedirect = (id) => {
     handleCollected(id);
-    navigate("/");
+    navigate("/dashBoard");
   };
 
   const goAheadAndRedirect = (id) => {
     handleGoAhead(id);
-    navigate("/");
+    navigate("/dashBoard");
   };
 
   return (
-    <section className="quotes-feed">
+    <section className={search || !collectButton ? "hidden" : "feed"}>
       <h3>Collection Feed</h3>
       {collectionsList[0] ? (
         <table>

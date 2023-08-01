@@ -6,14 +6,16 @@ const JobPage = ({
   handleCollected,
   handleComplete,
   handleMaterialsOrdered,
+  handleQuoted,
   setSearch,
-  handleDelete,
+  setSmallScreen,
 }) => {
   const navigate = useNavigate();
   const { id } = useParams();
   const job = jobs.find((job) => job.id.toString() === id);
   const date = new Date(Date.parse(job.dueDate));
   date.setDate(date.getDate());
+  setSmallScreen(true);
 
   const dueDate = date.toLocaleString("en-GB", {
     day: "numeric",
@@ -23,108 +25,41 @@ const JobPage = ({
 
   const collectedAndRedirect = (id) => {
     handleCollected(id);
-    navigate("/");
+    navigate("/dashBoard");
   };
 
   const materialsOrderedAndRedirect = (id) => {
     handleMaterialsOrdered(id);
-    navigate("/");
+    navigate("/dashBoard");
   };
 
   const completedAndRedirect = (_id) => {
     handleComplete(_id);
-    navigate("/");
+    navigate("/dashBoard");
+  };
+
+  const quoteAndRedirect = (_id) => {
+    handleQuoted(_id);
+    navigate("/dashBoard");
   };
 
   console.log({ job });
 
   return (
-    <main>
+    <main className="main-content">
       {job && (
         <div className="job-page">
-          <div className="job-page-body">
-            <h3>{job.id}</h3>
-            <h3 style={{ color: "red" }}>{job.quoteRequired && "QUOTE"}</h3>
-            {job.quoteRequired && (
-              <p>
-                <span>Quote for</span> <span>{job.quoteDetails}</span>
-              </p>
-            )}
-          </div>
-          <div className="job-page-body">
-            <h2>Customer Details</h2>
-            <p>
-              <span>First Name</span> <span>{job.fName}</span>
-            </p>
-            <p>
-              <span>Last Name</span> <span>{job.lName}</span>
-            </p>
-            <p>
-              <span>Phone Number</span> <span>{job.phoneNumber}</span>
-            </p>
-            {job.addressRequired && (
-              <p>
-                <span>Address</span> <span>{job.address}</span>
-              </p>
-            )}
-          </div>
-          <div className="job-page-body">
-            <h2>Item Details</h2>
-            <p>
-              <span>Item</span> <span>{job.itemDescription}</span>
-            </p>
-            <p>
-              <span>Work Required</span> <span>{job.workRequired}</span>
-            </p>
-            <p>
-              <span>Price</span> <span>{job.price}</span>
-            </p>
-            {job.depositRequired && (
-              <p>
-                <span>Deposit</span> <span>{job.depositAmount}</span>
-              </p>
-            )}
-            <p>
-              <span>Due date</span> <span>{dueDate}</span>
-            </p>
-          </div>
-          <div className="job-page-body">
-            {job.materialsRequired && <h2>Order Materials</h2>}
-            {job.materialsRequired && (
-              <>
-                <p>
-                  <span>Supplier</span> <span>{job.materialsSupplier}</span>
-                </p>{" "}
-                <p>
-                  <span>Materials</span> <span>{job.materialsNotes}</span>
-                </p>
-                <p>
-                  <label htmlFor="materialsOrdered">Materials Ordered </label>
-                  <input
-                    name="materialsOrdered"
-                    id="materialsOrdered"
-                    title="Materials Ordered"
-                    value={job.materialsOrdered}
-                    type="checkBox"
-                    checked={job.materialsOrdered}
-                    onChange={() => materialsOrderedAndRedirect(job._id)}
-                  ></input>
-                </p>
-              </>
-            )}
-          </div>
-          <div className="job-page-body">
-            {job.additionalNotesRequired && <h2>Extra Info</h2>}
-            {job.additionalNotesRequired && (
-              <p>
-                <span>Notes</span> <span>{job.additionalNotes}</span>
-              </p>
-            )}
-            {job.damagedRequired && (
-              <p>
-                <span>Damage</span> <span>{job.damagedNotes}</span>
-              </p>
-            )}
+          <Link className="close-button" reloadDocument to={"/dashBoard"}>
+            <button
+              onClick={() => {
+                setSearch("");
+              }}
+            >
+              Close
+            </button>
+          </Link>
+          <h3>{job.id}</h3>
+          <div className="main-content-buttons">
             <label htmlFor="completed">Completed </label>
             <input
               name="completed"
@@ -135,7 +70,6 @@ const JobPage = ({
               checked={job.completed}
               onChange={() => completedAndRedirect(job._id)}
             ></input>
-            <br />
             <label htmlFor="collected">Collected </label>
             <input
               name="collected"
@@ -146,26 +80,63 @@ const JobPage = ({
               checked={job.collected}
               onChange={() => collectedAndRedirect(job._id)}
             ></input>
-            {/* remove delete button after depoly. only needed for developement */}
-            <br />
+            <label htmlFor="quoted">Quoted </label>
             <input
+              name="quoted"
+              id="quoted"
+              title="Quoted"
+              value={job.quoted}
               type="checkBox"
-              onChange={() => handleDelete(job._id)}
+              checked={job.quoted}
+              onChange={() => quoteAndRedirect(job._id)}
             ></input>
           </div>
-          <br />
+          <h3 style={{ color: "red" }}>{job.quoteRequired && "QUOTE"}</h3>
+          <div className="main-content-table">
+            <p>First Name</p> <h4>{job.fName}</h4>
+            <p>Last Name</p> <h4>{job.lName}</h4>
+            <p>Phone Number</p> <h4>{job.phoneNumber}</h4>
+            {job.addressRequired && <p>Address</p>}
+            {job.addressRequired && <h4>{job.address}</h4>}
+            <p>Item</p>
+            <h4>{job.itemDescription}</h4>
+            <p>Work Required</p>
+            <h4>{job.workRequired}</h4>
+            {job.quoteRequired && <p>Quote for</p>}
+            {job.quoteRequired && <h4>{job.quoteDetails}</h4>}
+            <p>Price</p>
+            <h4>{job.price}</h4>
+            {job.depositRequired && <p>Deposit</p>}
+            {job.depositRequired && <h4>{job.depositAmount}</h4>}
+            <p>Due date</p>
+            <h4>{dueDate}</h4>
+            {job.materialsRequired && (
+              <>
+                <p>Supplier</p>
+                <h4>{job.materialsSupplier}</h4>
+                <p>Materials</p>
+                <h4>{job.materialsNotes}</h4>
+                <label htmlFor="materialsOrdered">Materials Ordered </label>
+                <input
+                  name="materialsOrdered"
+                  id="materialsOrdered"
+                  title="Materials Ordered"
+                  value={job.materialsOrdered}
+                  type="checkBox"
+                  checked={job.materialsOrdered}
+                  onChange={() => materialsOrderedAndRedirect(job._id)}
+                ></input>
+              </>
+            )}
+            {job.additionalNotesRequired && <p>Notes</p>}
+            {job.additionalNotesRequired && <h4>{job.additionalNotes}</h4>}
+            {job.damagedRequired && <p>Damage</p>}
+            {job.damagedRequired && <h4>{job.damagedNotes}</h4>}
+            {/* remove delete button after depoly. only needed for developement */}
+          </div>
         </div>
       )}
       {!job && <h1>no job found</h1>}
-      <Link to={"/"}>
-        <button
-          onClick={() => {
-            setSearch("");
-          }}
-        >
-          Home
-        </button>
-      </Link>
     </main>
   );
 };
