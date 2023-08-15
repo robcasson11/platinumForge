@@ -38,8 +38,8 @@ const SearchFeed = () => {
           <thead>
             <tr>
               <th>Job</th>
+              <th>Customer</th>
               <th>Item</th>
-              <th>Work Required</th>
               <th>Completed</th>
               <th>Collected</th>
             </tr>
@@ -54,6 +54,13 @@ const SearchFeed = () => {
                     </Link>
                   </td>
                   <td>
+                    <Link to={`jobPage/${job.id}`}>
+                      <p>
+                        {job.fName} {job.lName}
+                      </p>
+                    </Link>
+                  </td>
+                  <td>
                     <p>
                       <Link to={`jobPage/${job.id}`}>
                         {job.itemDescription.length < 8
@@ -61,11 +68,6 @@ const SearchFeed = () => {
                           : job.itemDescription.slice(0, 8) + "..."}
                       </Link>
                     </p>
-                  </td>
-                  <td>
-                    <Link to={`jobPage/${job.id}`}>
-                      <p>{job.workRequired}</p>
-                    </Link>
                   </td>
                   <td>
                     <button

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useContext } from "react";
 import DataContext from "../context/DataContext";
 import { useParams, useNavigate, Link } from "react-router-dom";
@@ -16,9 +16,17 @@ const JobPage = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const job = jobs.find((job) => job.id.toString() === id);
+
+  useEffect(() => {
+    setSmallScreen(true);
+    setSearch("");
+  });
+
+  if (!job) {
+    return <div>Loading...</div>;
+  }
   const date = new Date(Date.parse(job.dueDate));
   date.setDate(date.getDate());
-  setSmallScreen(true);
 
   const dueDate = date.toLocaleString("en-GB", {
     day: "numeric",
@@ -46,7 +54,9 @@ const JobPage = () => {
     navigate("/dashBoard");
   };
 
-  console.log({ job });
+  if (!job) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <main className="main-content">

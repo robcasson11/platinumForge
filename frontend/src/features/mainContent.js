@@ -1,12 +1,14 @@
 import React from "react";
 import { useContext } from "react";
 import DataContext from "../context/DataContext";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import DevData from "../data/devData";
 import api from "../api/jobs";
 
 const MainContent = () => {
   const { search } = useContext(DataContext);
+
+  const navigate = useNavigate();
 
   const populateDatabase = async () => {
     clearDatabase();
@@ -17,6 +19,7 @@ const MainContent = () => {
         console.log(`Error : ${err.message}`);
       }
     });
+    navigate("/dashBoard");
   };
 
   const clearDatabase = async () => {
@@ -28,7 +31,6 @@ const MainContent = () => {
   };
   return (
     <div className="main-content">
-      <p>Welcome</p>
       <div className={search ? "hidden" : "devButtons"}>
         <button className="button">
           <span>

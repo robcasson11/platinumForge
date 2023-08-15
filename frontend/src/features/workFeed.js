@@ -5,8 +5,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { MdDone } from "react-icons/md";
 
 const WorkFeed = () => {
-  const { workButton, jobs, handleCollected, handleComplete, search } =
-    useContext(DataContext);
+  const { workButton, jobs, handleComplete, search } = useContext(DataContext);
 
   const navigate = useNavigate();
 
@@ -17,16 +16,11 @@ const WorkFeed = () => {
   const filteredJobs = jobs
     .filter((job) => {
       const [dueDate] = job.dueDate.split("T");
-      return dueDate === date && !job.completed && !job.quoted;
+      return dueDate === date && !job.completed && !job.quoteRequired;
     })
     .map((job) => {
       return job;
     });
-
-  const collectedAndRedirect = (id) => {
-    handleCollected(id);
-    navigate("/dashBoard");
-  };
 
   const completeAndRedirect = (id) => {
     handleComplete(id);
@@ -44,7 +38,6 @@ const WorkFeed = () => {
               <th>Item</th>
               <th>Work Required</th>
               <th>Completed</th>
-              <th>Collected</th>
             </tr>
           </thead>
           <tbody>
@@ -72,11 +65,6 @@ const WorkFeed = () => {
                   </td>
                   <td>
                     <button onClick={() => completeAndRedirect(job._id)}>
-                      <MdDone />
-                    </button>
-                  </td>
-                  <td>
-                    <button onClick={() => collectedAndRedirect(job._id)}>
                       <MdDone />
                     </button>
                   </td>

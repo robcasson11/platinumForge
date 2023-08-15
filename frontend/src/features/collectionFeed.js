@@ -11,7 +11,10 @@ const CollectionFeed = () => {
   const navigate = useNavigate();
 
   const collectionsList = jobs.filter((job) => {
-    return !job.collected & job.quoted || job.completed & !job.collected;
+    return (
+      !job.collected & job.quoted & job.workRequired ||
+      job.completed & !job.collected
+    );
   });
 
   const collectedAndRedirect = (id) => {
@@ -48,10 +51,14 @@ const CollectionFeed = () => {
                     </Link>
                   </td>
                   <td>
-                    <p>{job.fName}</p>
+                    <Link to={`jobPage/${job.id}`}>
+                      <p>{job.fName}</p>
+                    </Link>
                   </td>
                   <td>
-                    <p>{job.workRequired}</p>
+                    <Link to={`jobPage/${job.id}`}>
+                      <p>{job.workRequired}</p>
+                    </Link>
                   </td>
                   <td>
                     {!job.completed && (

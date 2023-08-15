@@ -8,6 +8,7 @@ const NavBar = () => {
     quoteButton,
     orderButton,
     collectButton,
+    setSearch,
     setWorkButton,
     setQuoteButton,
     setOrderButton,
@@ -21,24 +22,28 @@ const NavBar = () => {
     if (id === "work") {
       setWorkButton(workButton ? false : true);
       setSmallScreen(false);
+      setSearch("");
     } else {
       setWorkButton(false);
     }
     if (id === "order") {
       setOrderButton(orderButton ? false : true);
       setSmallScreen(false);
+      setSearch("");
     } else {
       setOrderButton(false);
     }
     if (id === "quote") {
       setQuoteButton(quoteButton ? false : true);
       setSmallScreen(false);
+      setSearch("");
     } else {
       setQuoteButton(false);
     }
     if (id === "collect") {
       setCollectButton(collectButton ? false : true);
       setSmallScreen(false);
+      setSearch("");
     } else {
       setCollectButton(false);
     }

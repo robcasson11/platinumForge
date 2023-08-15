@@ -13,7 +13,7 @@ const NewItem = ({
   const [page1, setPage1] = useState(false);
   const [page2, setPage2] = useState(true);
   const [page3, setPage3] = useState(true);
-  //U can create an array/object to store all of these refs somehow...(https://mattclaffey.medium.com/adding-react-refs-to-an-array-of-items-96e9a12ab40c)
+  //You can create an array/object to store all of these refs somehow...(https://mattclaffey.medium.com/adding-react-refs-to-an-array-of-items-96e9a12ab40c)
   const checkBoxRef = useRef();
   const checkBoxRefDeposit = useRef();
   const checkBoxRefDamaged = useRef();
@@ -172,7 +172,7 @@ const NewItem = ({
           <br />
           <Input
             name="depositRequired"
-            title="Deposite"
+            title="Deposit"
             innerRef={checkBoxRefDeposit}
             value={job.depositRequired}
             type="checkBox"

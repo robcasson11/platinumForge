@@ -1,3 +1,5 @@
+import { firstName, lastName, description, work, details } from "./falseData";
+
 function randomNumber(int) {
   return Math.floor(Math.random() * int);
 }
@@ -14,15 +16,15 @@ for (let i = 0; i < 20; i++) {
   dataObject[i] = {
     dueDate: dueDate,
     jobNum: i + 450,
-    fName: i + " Flynn",
-    lName: i + " Casson",
+    fName: firstName[randomNumber(12)],
+    lName: lastName[randomNumber(11)],
     phoneNumber: i + "098523847",
     addressRequired: true,
-    address: i + " home",
-    itemDescription: i + " Paw",
-    workRequired: i + " Touch",
+    address: i + "123 House Close, House Street, London, E1 6AN",
+    itemDescription: description[randomNumber(7)],
+    workRequired: work[randomNumber(6)],
     quoteRequired: randomDayNum === 1 ? randomTrueOrFalse : false,
-    quoteDetails: i + " How much would it cost to do stuff to this stuff?",
+    quoteDetails: details[randomNumber(5)],
     price: "1",
     additionalNotesRequired: false,
     additionalNotes: "",

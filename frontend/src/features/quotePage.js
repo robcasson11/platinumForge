@@ -1,7 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useContext } from "react";
 import DataContext from "../context/DataContext";
-import { useEffect } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 
 const QuotePage = () => {
@@ -18,11 +17,13 @@ const QuotePage = () => {
   const { id } = useParams();
   const job = jobs.find((job) => job.id.toString() === id);
   const navigate = useNavigate();
-  setSmallScreen(true);
+  useEffect(() => {
+    setSmallScreen(true);
+  });
 
   useEffect(() => {
     if (job) {
-      setEditWorkRequired(job.workRequired);
+      setEditWorkRequired("");
       setEditPrice(job.price);
     }
   }, [job, setEditWorkRequired, setEditPrice]);
@@ -31,6 +32,10 @@ const QuotePage = () => {
     handleEdit(id);
     navigate("/dashBoard");
   };
+
+  if (!job) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="quote-page main-content">

@@ -12,6 +12,15 @@ body {
   font-size: 2rem;
 }
 
+::-webkit-scrollbar {
+  width: 0;
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-image: var(--blue-grade);
+}
+
 a,
 a:visited,
 a:hover,

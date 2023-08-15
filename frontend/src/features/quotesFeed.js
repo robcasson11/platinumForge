@@ -22,7 +22,7 @@ const QuotesFeed = () => {
           <thead>
             <tr>
               <th>Job</th>
-              <th>Customer Name</th>
+              <th>Item Description</th>
               <th>Work To Quote For</th>
             </tr>
           </thead>
@@ -37,12 +37,12 @@ const QuotesFeed = () => {
                   </td>
                   <td>
                     <Link to={`quotePage/${job.id}`}>
-                      <p>{job.fName}</p>
+                      <p>{job.itemDescription}</p>
                     </Link>
                   </td>
                   <td>
                     <Link to={`quotePage/${job.id}`}>
-                      <p>{job.workRequired}</p>
+                      <p>{job.quoteDetails}</p>
                     </Link>
                   </td>
                 </tr>
