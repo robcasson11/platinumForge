@@ -7,7 +7,7 @@ const jobSchema = new mongoose.Schema(
   {
     id: {
       type: Number,
-      // required: true,
+      required: true,
     },
     itemDescription: {
       type: String,
