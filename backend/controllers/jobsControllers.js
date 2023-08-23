@@ -118,7 +118,7 @@ const createNewJob = asyncHandler(async (req, res) => {
   }
 
   const jobObject = {
-    id: jobNum,
+    jobNum: jobNum,
     itemDescription,
     workRequired,
     quoteRequired,
@@ -161,7 +161,7 @@ const updateJob = asyncHandler(async (req, res) => {
   //When item is updated in the frontend, the form may have to diplay the current values in the inputs so that the form is updated with the same info for the inputs that haven't changed.
   const {
     _id,
-    id,
+    jobNum,
     itemDescription,
     workRequired,
     quoteRequired,
@@ -232,7 +232,7 @@ const updateJob = asyncHandler(async (req, res) => {
   const updatedJob = await job.save();
 
   res.json({
-    message: `Job ${updatedJob.id} has been updated.`,
+    message: `Job ${updatedJob.jobNum} has been updated.`,
   });
 });
 

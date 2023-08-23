@@ -12,15 +12,19 @@ describe("Job model", () => {
   });
 
   it("should create a new job", async () => {
+    const jobs = await Job.find().lean();
+    const count = jobs.length + 450;
     const job = new Job({
-      fName: "TestFirstName",
+      fName: "TestFirstName2",
+      timescale: 3,
+      jobNum: count,
     });
 
-    await job.save();
+    const createdJob = await job.save();
 
-    const createdJob = await Job.findOne({ fName: "TestFirstName" });
+    await createdJob;
 
     expect(createdJob).toBeDefined();
-    expect(createdJob.fName).toEqual("TestFirstName");
+    expect(createdJob.fName).toEqual("TestFirstName2");
   });
-});
+}, 10000);

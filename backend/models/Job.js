@@ -1,13 +1,10 @@
 const mongoose = require("mongoose");
-const AutoIncrement = require("mongoose-sequence")(mongoose);
-
-//refer to MongoDB MERN Stack Tutorial / mongoose vid (chapter create note model) on trying to connect two models (i.e. have job paired with customer)
 
 const jobSchema = new mongoose.Schema(
   {
-    id: {
+    jobNum: {
       type: Number,
-      // required: true,
+      default: () => count,
     },
     itemDescription: {
       type: String,
@@ -91,10 +88,14 @@ const jobSchema = new mongoose.Schema(
     },
     timescale: {
       type: Number,
-      // required: true,
+      required: true,
     },
     dueDate: {
       type: Date,
+      default: function () {
+        const date = new Date();
+        return date.setDate(date.getDate() + 7 * this.timescale);
+      },
     },
     //later on would be nice to add a "undergoing work" option to show that the job may be with a member of staff being worked on.
     completed: {
