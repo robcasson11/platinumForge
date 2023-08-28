@@ -7,7 +7,8 @@ function randomNumber(int) {
 const randomBoolean = [true, false];
 
 const dataObject = [];
-for (let i = 0; i < 20; i++) {
+let id = 450;
+for (let i = 0; i < 49; i++) {
   const randomTrueOrFalse = randomBoolean[randomNumber(2)];
   const date = new Date();
   const randomDay = [0, 1, 0, 1, 3, 5];
@@ -15,7 +16,7 @@ for (let i = 0; i < 20; i++) {
   const dueDate = new Date(date.setDate(date.getDate() + randomDayNum));
   dataObject[i] = {
     dueDate: dueDate,
-    jobNum: i + 450,
+    id: id + i,
     fName: firstName[randomNumber(12)],
     lName: lastName[randomNumber(11)],
     phoneNumber: i + "098523847",
@@ -43,6 +44,7 @@ for (let i = 0; i < 20; i++) {
     completed: randomDayNum === 0 ? randomTrueOrFalse : false,
     quoted: (randomDayNum === 1) & (randomTrueOrFalse === true) ? false : true,
   };
+  console.log(randomDayNum, randomTrueOrFalse, id + i);
 }
 
 export default dataObject;

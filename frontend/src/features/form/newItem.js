@@ -258,9 +258,8 @@ const NewItem = ({
         </div>
         <div className="form-right">
           <p>
-            Please provide information on any materials that need ordering and
-            where they need ordering from. Also please provide a timescale in
-            weeks.
+            There are two possible suppliers with different delivery times.
+            Please specify which supplier by number, either 1 or 2.
           </p>
         </div>
       </div>

@@ -2,21 +2,24 @@ const mongoose = require("mongoose");
 
 const jobSchema = new mongoose.Schema(
   {
-    jobNum: {
+    id: {
       type: Number,
       default: () => count,
+      required: true,
+      unique: true,
     },
     itemDescription: {
       type: String,
-      // required: true,
+      required: true,
     },
     workRequired: {
       type: String,
-      // required: true,
+      required: true,
     },
     quoteRequired: {
       type: Boolean,
       default: false,
+      required: true,
     },
     quoteDetails: {
       type: String,
@@ -28,19 +31,20 @@ const jobSchema = new mongoose.Schema(
     },
     fName: {
       type: String,
-      // required: true,
+      required: true,
     },
     lName: {
       type: String,
-      // required: true,
+      required: true,
     },
     phoneNumber: {
       type: Number,
-      // required: true,
+      required: true,
     },
     addressRequired: {
       type: Boolean,
       default: false,
+      required: true,
     },
     address: {
       type: String,
@@ -49,6 +53,7 @@ const jobSchema = new mongoose.Schema(
     additionalNotesRequired: {
       type: Boolean,
       default: false,
+      required: true,
     },
     additionalNotes: {
       type: String,
@@ -56,7 +61,7 @@ const jobSchema = new mongoose.Schema(
     },
     damagedRequired: {
       type: Boolean,
-      // required: true,
+      required: false,
     },
     damagedNotes: {
       type: String,
@@ -65,6 +70,7 @@ const jobSchema = new mongoose.Schema(
     depositRequired: {
       type: Boolean,
       default: false,
+      required: true,
     },
     depositAmount: {
       type: Number,
@@ -73,6 +79,7 @@ const jobSchema = new mongoose.Schema(
     materialsRequired: {
       type: Boolean,
       default: false,
+      required: true,
     },
     materialsSupplier: {
       type: String,
@@ -97,7 +104,6 @@ const jobSchema = new mongoose.Schema(
         return date.setDate(date.getDate() + 7 * this.timescale);
       },
     },
-    //later on would be nice to add a "undergoing work" option to show that the job may be with a member of staff being worked on.
     completed: {
       type: Boolean,
       default: false,
@@ -109,17 +115,20 @@ const jobSchema = new mongoose.Schema(
     collected: {
       type: Boolean,
       default: false,
+      required: true,
     },
-    password: {
-      type: String,
-      required: false,
-      //change to true when starting to use but implement all pasword stuff like in the jobCOntrollers file.
-    },
-    //everything in this list may need to be added to FRONTEND form and the jobCotrollers in the CONTROLLERS folder...
   },
   {
     timestamps: true,
   }
 );
+
+jobSchema.pre("save", function (next) {
+  if (!this.price) {
+    this.price = 0;
+  }
+
+  next();
+});
 
 module.exports = mongoose.model("Job", jobSchema);

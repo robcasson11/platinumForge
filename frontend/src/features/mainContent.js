@@ -15,6 +15,7 @@ const MainContent = () => {
     DevData.map(async (data) => {
       try {
         await api.post("/jobs", data);
+        console.log(data);
       } catch (err) {
         console.log(`Error : ${err.message}`);
       }
