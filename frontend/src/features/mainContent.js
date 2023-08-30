@@ -11,7 +11,6 @@ const MainContent = () => {
   const navigate = useNavigate();
 
   const populateDatabase = async () => {
-    clearDatabase();
     DevData.map(async (data) => {
       try {
         await api.post("/jobs", data);
