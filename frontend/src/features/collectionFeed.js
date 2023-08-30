@@ -11,10 +11,7 @@ const CollectionFeed = () => {
   const navigate = useNavigate();
 
   const collectionsList = jobs.filter((job) => {
-    return (
-      !job.collected & job.quoted & job.workRequired ||
-      job.completed & !job.collected
-    );
+    return !job.collected & job.quoted || job.completed & !job.collected;
   });
 
   const collectedAndRedirect = (id) => {
@@ -68,11 +65,9 @@ const CollectionFeed = () => {
                     )}
                   </td>
                   <td>
-                    {job.completed && (
-                      <button onClick={() => collectedAndRedirect(job._id)}>
-                        <MdDone />
-                      </button>
-                    )}
+                    <button onClick={() => collectedAndRedirect(job._id)}>
+                      <MdDone />
+                    </button>
                   </td>
                 </tr>
               );

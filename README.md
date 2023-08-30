@@ -5,6 +5,14 @@ This is an in depth to-do list for a small business that repairs “items”. Th
 //link to brief
 //screenshots of working app
 
+# Installing and Running
+
+//instructions for installing each directory
+
+To run the backend locally, you will need to create a .env file in the backend directory. Copy the contents of the .env.example file into the .env file and replace the MongoDB connection URI with your own URI.
+
+When using the "populate database" button... This seeds the database with false data to show how the app looks. Make sure to let some time pass for the data to post to the database otherwise the POST will be interrupted and cause unwanted behaviour. 10 - 15 seconds should do.
+
 # The Stack
 
 MongoDB, Express, React and Node are the fundamental languages and frameworks used.
