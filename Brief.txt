@@ -1,0 +1,99 @@
+Welcome to the Plat Forge app!
+
+This is the fictional brief to accompany the app I have developed. I created this brief in order to challenge and showcase my current skill set and ability as a developer.  
+
+This “business” requires a new app which will require Both front-end and back-end code including connecting to a database via a custom REST API. I will use the MERN stack to achieve this.
+
+The Client
+
+Dave runs a small business called 'The Platinum Forge'. The business repairs and restores luxury watches. Dave works for himself and has no staff. Customers visit Dave in his high street shop where they will discuss an item they would like to leave for a repair or restoration. 
+The customer then leaves the item with Dave for at least a week and Dave can complete the work necessary. It's common that Dave requires more time to inspect the item to determine the work required as well as the cost. Therefore Dave often initially  takes in items as 'Quotes’. The quotes are forwarded to the customer after a few days and then the client can give the go ahead for the work at the price that has been quoted. 
+Dave often orders 'Parts' or 'Materials' for some of the items. He only uses two 'suppliers' for these parts. The first supplier offers next day delivery whereas the second supplier requires 3 days. 
+Dave commences work on an item the day before it is due for collection. The customer is then able to come collect their item. Alternatively clients can request that their item is posted, which Dave will send with signed delivery.
+
+
+Extra Details
+
+After further discussion, Dave provided us with some extra details which could be relevant when designing the application…
+Dave would rather use a laptop because he dislikes using a touchscreen keyboard. HOWEVER he has admitted it could be handy to use the app on a tablet or his phone when in his workshop since he will be using the app to view jobs and mark them as finished/ordered ect as opposed to booking in a job which will involve filling in a form. 
+Dave currently doesn't have any employees but it is something he may consider in the future so the UX of the app should be as straightforward as possible and not just tailored to Dave.
+Some of the watches Dave works on are antique and have visible wear and tear/damage. To protect himself and his business, Dave would like to make a note of any damage/weakness when booking in the item.
+For bigger jobs, Dave takes a deposit.
+
+Clients Requests
+
+Dave would like us to build him an application to help keep track of the ongoing work. Daves requests are as follows-
+Dave would like the app to display all the work he needs to do on the day. For example…
+A list of all the jobs that are due to be picked up 'tomorrow'(display a job the day before it's "due date/collection date")
+A list of all the quotes the day before they are due
+A list of all the materials that need ordering. (This info needs to be displayed a set number of days BEFORE the due date of the job so that there is time for the parts to be delivered AND have the work completed by Dave)
+A list of jobs that are completed and due to be collected that day
+
+The app will need a form to book in one or more items (watches) alongside customer information and requests.
+
+
+App Brief 
+
+The app will consist of two main sections. A form to book in jobs and a dashboard that will display feeds/interactive pages used to update the jobs.
+
+The form will require the following pieces of information …
+First Name
+Last Name
+Phone Number
+Address (optional)
+Item Description (the make and details of the watch being left)
+Work Required (what the customer has requested)
+Quote (optional - if required "quote details" will have to be taken)
+Price
+Damage ( If true "details of damage" will have to be taken)
+Deposit 
+Materials (including which of the two suppliers those materials come from)
+Additional Notes (an additional extra for Dave to make other notes about the job ie… “Upon closer inspection this glass can’t be replaced. This item must be returned incomplete to the customer” or "regular customer/watch has been in before, the crown can be knocked loose so take extra care"
+Time scale in weeks 
+
+
+
+The dashboard will consist of the following sections…
+A Work Feed
+A feed of all the jobs that are due to be completed 'tomorrow'
+It will display
+The job number
+Item description
+The work required
+The option to mark the job as "completed"
+
+A Quotes Feed
+A feed of all the jobs that are to be quoted for that are also due for "tomorrow"
+It will display
+The job number
+The item description
+The requested work to be quoted for
+This feed will link each displayed job to a "Quotes page". A separate section where the job can be updated to show the quoted price and any additional Notes that need adding regarding the work required.
+
+An Orders Feed
+A feed for jobs that need “parts” ordering.
+It will display 
+The job number
+The materials that need ordering
+The supplier those materials come from
+The option to mark the materials as “Ordered”
+The jobs displayed in this feed will have to be displayed on a specific date based on how long it takes  for the materials to arrive and so that Dave has enough time (1 working day) to complete the work. For the first supplier that would be 3 days before the due date. The second supplier would be 5 days
+
+A Collections Feed
+A list of all the jobs that are due to be collected
+It will display 
+The job number
+The customer's name
+The due date
+The option to mark the job as a “go ahead” in the case that it is a quote that the customer wants to go ahead with.
+The option to mark the job as “collected” if the job was a quote and the customer doesn’t want to go ahead with it or if the job is completed and has been collected
+
+Within the feeds for the dashboard, Dave will be able to select any part of the items displayed to open up a “job page” that displays all of the jobs information and the options to mark the job as either “quoted”, “ordered”, “completed” or “collected”.
+
+There will also be a search bar for Dave to search for a specific job by the job number, clients name or the items description.
+
+Possible requirements
+
+Seeding
+
+Once the app is in a position for Dave to test it, the app will need data in the database to show how all the feeds and pages will display said data. During development, but before being deployed the app could have a 'populate database' button which will seed the database with false details of fake customers. 

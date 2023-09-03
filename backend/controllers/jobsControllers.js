@@ -1,11 +1,8 @@
 const asyncHandler = require("express-async-handler");
-const bcrypt = require("bcrypt");
 const Job = require("../models/Job");
 
 const getAllJobs = asyncHandler(async (req, res) => {
   const jobs = await Job.find().lean();
-  // use this line below if/when passord is added to make sure the password isn't sent back in the get request....
-  // const jobs = await Jobs.find().select("-password").lean()
   if (!jobs?.length) {
     return res.status(400).json({ message: "No jobs found!" });
   }
@@ -13,32 +10,8 @@ const getAllJobs = asyncHandler(async (req, res) => {
 });
 
 const createNewJob = asyncHandler(async (req, res) => {
-  //EXAMPLE OF DATA NEEDED IN BODY OF POST REQUEST
-  //   {
-  //     "itemDescription": "",
-  //     "workRequired": "",
-  //     "quoteRequired": "",
-  //     "quoteDetails": "",
-  //     "price": "",
-  //     "fName": "",
-  //     "lName": "",
-  //     "phoneNumber": 0,
-  //     "addressRequired": "",
-  //     "address": "",
-  //     "additionalNotesRequired" : "",
-  //     "additionalNotes": "",
-  //     "damagedRequired": "",
-  //     "damagedNotes": "",
-  //     "depositRequired": "",
-  //     "depositAmount": "",
-  //     "materialsRequired": "",
-  //     "materialsSupplier": "",
-  //     "materialsNotes": "",
-  //     "timescale": 0
-  // }
-
   let {
-    jobNum,
+    id,
     dueDate,
     itemDescription,
     workRequired,
@@ -63,62 +36,13 @@ const createNewJob = asyncHandler(async (req, res) => {
     completed,
     quoted,
   } = req.body;
-  //could put in an if (!itemDecription || workReuired || pri.....)... ect to check that all feilds required are filled in however the form in the frontend has "required" in the inputs so might not be needed....
-
-  const duplicate = await Job.findOne({
-    lName,
-    itemDescription,
-    workRequired,
-  })
-    .lean()
-    .exec();
-  if (duplicate) {
-    return res.status(409).json({
-      message: "This job is currently booked in and being worked on.",
-    });
-  }
-  //FOR HASHING PASSWORD.... watch MERN API controllers & routers chapter: createNewUser controller
 
   const jobs = await Job.find().lean();
-
-  // if jobNum is undefined statment only needed for DEVELOPEMENT. Delete before deploy.
-  if (jobNum === undefined) {
-    if (!jobs?.length) {
-      jobNum = 450;
-    }
-
-    jobNum = jobs.length + 450;
-
-    if (price === "") {
-      price = 0;
-    }
-  }
-
-  if (price === "") {
-    price = 0;
-  }
-
-  const date = new Date();
-
-  const addWeeks = (date, weeks) => {
-    date.setDate(date.getDate() + 7 * weeks);
-    return date;
-  };
-
-  if (dueDate === undefined) {
-    dueDate = addWeeks(date, timescale);
-  }
-
-  if (completed === undefined) {
-    completed = false;
-  }
-
-  if (quoted === undefined) {
-    quoted = false;
-  }
+  const count = jobs.length + 450;
 
   const jobObject = {
-    id: jobNum,
+    id: id ? id : count,
+    dueDate: dueDate && dueDate,
     itemDescription,
     workRequired,
     quoteRequired,
@@ -138,12 +62,9 @@ const createNewJob = asyncHandler(async (req, res) => {
     materialsRequired,
     materialsSupplier,
     materialsNotes,
-    materialsOrdered: "false",
     timescale,
-    dueDate,
-    completed,
-    quoted,
-    collected: "false",
+    completed: completed && completed,
+    quoted: quoted && quoted,
   };
 
   const job = await Job.create(jobObject);
@@ -151,36 +72,18 @@ const createNewJob = asyncHandler(async (req, res) => {
   if (job) {
     res
       .status(201)
-      .json({ message: `New job, ${jobNum}: ${itemDescription}, created.` });
+      .json({ message: `New job, ${count}: ${itemDescription}, created.` });
   } else {
     res.status(400).json({ message: "Invalid job data recieved" });
   }
 });
 
 const updateJob = asyncHandler(async (req, res) => {
-  //When item is updated in the frontend, the form may have to diplay the current values in the inputs so that the form is updated with the same info for the inputs that haven't changed.
   const {
     _id,
-    id,
-    itemDescription,
     workRequired,
-    quoteRequired,
     quoteDetails,
     price,
-    fName,
-    lName,
-    phoneNumber,
-    addressRequired,
-    address,
-    additionalNotesRequired,
-    additionalNotes,
-    damagedRequired,
-    damagedNotes,
-    depositRequired,
-    depositAmount,
-    materialsRequired,
-    materialsSupplier,
-    materialsNotes,
     materialsOrdered,
     timescale,
     dueDate,
@@ -189,42 +92,16 @@ const updateJob = asyncHandler(async (req, res) => {
     collected,
   } = req.body;
 
-  if (!itemDescription || !workRequired || !fName || !lName || !phoneNumber) {
-    return res
-      .status(400)
-      .json({ message: "All fields except password are required" });
-  }
-
   const job = await Job.findById(_id).exec();
 
   if (!job) {
     return res.status(400).json({ message: "job not found" });
   }
-
-  // if (completed) {
-  //   job.completed = completed;
-  // }
   job.collected = collected;
   (job.quoted = quoted), (job.completed = completed);
-  job.itemDescription = itemDescription;
   job.workRequired = workRequired;
-  job.quoteRequired = quoteRequired;
   job.quoteDetails = quoteDetails;
   job.price = price;
-  job.fName = fName;
-  job.lName = lName;
-  job.phoneNumber = phoneNumber;
-  job.addressRequired = addressRequired;
-  job.address = address;
-  job.additionalNotesRequired = additionalNotesRequired;
-  job.additionalNotes = additionalNotes;
-  job.damagedRequired = damagedRequired;
-  job.damagedNotes = damagedNotes;
-  job.depositRequired = depositRequired;
-  job.depositAmount = depositAmount;
-  job.materialsRequired = materialsRequired;
-  job.materialsSupplier = materialsSupplier;
-  job.materialsNotes = materialsNotes;
   job.materialsOrdered = materialsOrdered;
   job.timescale = timescale;
   job.dueDate = dueDate;
@@ -232,7 +109,7 @@ const updateJob = asyncHandler(async (req, res) => {
   const updatedJob = await job.save();
 
   res.json({
-    message: `Job ${updatedJob.id} has been updated.`,
+    message: `Job ${updatedJob.jobNum} has been updated.`,
   });
 });
 
