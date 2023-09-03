@@ -2,12 +2,40 @@
 
 This is an in depth to-do list for a small business that repairs “items”. The "tasks" (or in this case "items") are displayed via feeds. The feeds determine which "items" to display based on either, what it needs, when it needs to be completed, whether it is completed or if it has been collected.
 
-//link to brief
-//screenshots of working app
+To view the 'Brief' created for this app follow this link [Open in VS Code](Brief.txt)
+To view screenshots of the app with hints on its functions follow this link [Open in VS Code](Screenshots)
 
 # Installing and Running
 
-//instructions for installing each directory
+Clone the Repository
+
+$ cd platinumForge
+
+$ cd backend
+
+$ npm install
+
+$ touch .env
+
+$ copy the .env.example file text and paste into the created .env file you just created
+
+Replace the DATABASE_URI with your own mongoDB URI
+
+cd ..
+
+cd frontend
+
+npm install
+
+From this directory (platinumForge/frontend) run…
+
+npm start
+
+In a separate terminal from the backend directory (platinumForge/backend) run…
+
+npm run dev
+
+…enjoy!
 
 To run the backend locally, you will need to create a .env file in the backend directory. Copy the contents of the .env.example file into the .env file and replace the MongoDB connection URI with your own URI.
 

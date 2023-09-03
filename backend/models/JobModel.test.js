@@ -64,15 +64,15 @@ describe("Job model", () => {
     expect(updatedJob.fName).toEqual("UpdatedFirstName");
     expect(updatedJob.addressRequired).toEqual(true);
   });
-  // it("Deletes a job", async () => {
-  //   const jobs = await Job.find().lean();
-  //   const count = jobs.length + 449;
-  //   const job = await Job.findOne({ id: count });
+  it("Deletes a job", async () => {
+    const jobs = await Job.find().lean();
+    const count = jobs.length + 449;
+    const job = await Job.findOne({ id: count });
 
-  //   await job.deleteOne();
+    await job.deleteOne();
 
-  //   const deletedJob = await Job.findOne({ jobNum: count });
+    const deletedJob = await Job.findOne({ jobNum: count });
 
-  //   expect(deletedJob).toBeNull();
-  // });
+    expect(deletedJob).toBeNull();
+  });
 });
