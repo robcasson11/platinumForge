@@ -48,6 +48,16 @@ const NewUser = ({
 
   const nextPage = (e) => {
     e.preventDefault();
+
+    const requiredFields = ["fName", "lName", "phoneNumber"];
+    for (const field of requiredFields) {
+      const value = user[field];
+      if (value === "") {
+        alert(`Please enter a value for the ${field} field.`);
+        return;
+      }
+    }
+
     setUserList(user);
     setUser(blankForm);
     setUserFormComplete(true);

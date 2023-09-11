@@ -44,7 +44,6 @@ for (let i = 0; i < 49; i++) {
     completed: randomDayNum === 0 ? randomTrueOrFalse : false,
     quoted: (randomDayNum === 1) & (randomTrueOrFalse === true) ? false : true,
   };
-  console.log(randomDayNum, randomTrueOrFalse, id + i);
 }
 
 export default dataObject;

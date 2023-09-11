@@ -51,7 +51,7 @@ Materials (including which of the two suppliers those materials come from)
 Additional Notes (an additional extra for Dave to make other notes about the job ie… “Upon closer inspection this glass can’t be replaced. This item must be returned incomplete to the customer” or "regular customer/watch has been in before, the crown can be knocked loose so take extra care"
 Time scale in weeks 
 
-
+When a job is created, a job number will be assigned to it. At Daves request, the number shouldn't start at 0 or 1 since this would give the impression he hasn't been in business long. Therefore we will set the number to start at 450.
 
 The dashboard will consist of the following sections…
 A Work Feed

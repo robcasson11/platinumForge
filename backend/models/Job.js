@@ -14,7 +14,7 @@ const jobSchema = new mongoose.Schema(
     },
     workRequired: {
       type: String,
-      required: true,
+      required: false,
     },
     quoteRequired: {
       type: Boolean,

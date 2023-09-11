@@ -52,11 +52,19 @@ const NewItem = ({
 
   const updateItem = (e) => {
     e.preventDefault();
-    setPage1(false);
-    setPage3(true);
-    setJobList(job);
-    setJob(blankForm);
-    setItemFormComplete(true);
+    const requiredFields = ["timescale"];
+    for (const field of requiredFields) {
+      const value = job[field];
+      if (value === "") {
+        alert(`Please enter a value for the ${field} field.`);
+        return;
+      }
+      setPage1(false);
+      setPage3(true);
+      setJobList(job);
+      setJob(blankForm);
+      setItemFormComplete(true);
+    }
   };
 
   return (
@@ -76,6 +84,7 @@ const NewItem = ({
           <Input
             name="workRequired"
             title="Work Required"
+            placeHolder={"If quote, leave blank"}
             value={job.workRequired}
             type="text"
             handleInputChange={handleInputChange}
@@ -114,6 +123,14 @@ const NewItem = ({
           <button
             type="button"
             onClick={() => {
+              const requiredFields = ["fName, itemDescription"];
+              for (const field of requiredFields) {
+                const value = job[field];
+                if (value === "") {
+                  alert(`Please enter a value for the ${field} field.`);
+                  return;
+                }
+              }
               setPage1(true);
               setPage2(false);
             }}

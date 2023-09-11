@@ -2,10 +2,12 @@
 
 This is an in depth to-do list for a small business that repairs “items”. The "tasks" (or in this case "items") are displayed via feeds. The feeds determine which "items" to display based on either, what it needs, when it needs to be completed, whether it is completed or if it has been collected.
 
-To view the 'Brief' created for this app follow this link [Open in VS Code](Brief.txt)
-To view screenshots of the app with hints on its functions follow this link [Open in VS Code](Screenshots)
+To view the 'Brief' created for this app follow this link [](Brief.txt)
+To view screenshots of the app with hints on its functions follow this link [](Screenshots)
 
 # Installing and Running
+
+Node v18 required to run.
 
 Clone the Repository
 
@@ -35,7 +37,7 @@ In a separate terminal from the backend directory (platinumForge/backend) run…
 
 npm run dev
 
-…enjoy!
+Note: allowedOrigins.js in the config file in the backend diretory is set to localhost only. If needed you may need to add your own origin here.
 
 # The Stack
 
