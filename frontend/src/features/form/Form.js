@@ -75,19 +75,6 @@ function Form() {
           </div>
         </div>
       )}
-      {/* <div>
-        {data && (
-          <ul>
-            {Object.entries(data).map(([key, value]) => {
-              return (
-                <li key={key}>
-                  {JSON.stringify(key)}: {JSON.stringify(value)}
-                </li>
-              );
-            })}
-          </ul>
-        )}
-      </div> */}
     </>
   );
 }

@@ -12,7 +12,7 @@ const OrdersFeed = () => {
 
   const [date] = new Date().toISOString().split("T");
 
-  const quotesList = jobs
+  const ordersList = jobs
     .filter((job) => {
       return job.materialsRequired && job.materialsOrdered === false;
     })
@@ -49,8 +49,8 @@ const OrdersFeed = () => {
 
   return (
     <section className={search || !orderButton ? "hidden" : "feed"}>
-      <h3>Orders Feed</h3>
-      {quotesList[0] ? (
+      <h3>Jobs that need materials ordering</h3>
+      {ordersList[0] ? (
         <table>
           <thead>
             <tr>
@@ -61,7 +61,7 @@ const OrdersFeed = () => {
             </tr>
           </thead>
           <tbody>
-            {quotesList.map((job) => {
+            {ordersList.map((job) => {
               return (
                 <tr key={job.id}>
                   <td>

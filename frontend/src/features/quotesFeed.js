@@ -16,7 +16,7 @@ const QuotesFeed = () => {
 
   return (
     <section className={search || !quoteButton ? "hidden" : "feed"}>
-      <h3>Quotes Feed</h3>
+      <h3>Jobs to be quoted for</h3>
       {quotesList[0] ? (
         <table>
           <thead>

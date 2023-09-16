@@ -29,7 +29,7 @@ const WorkFeed = () => {
 
   return (
     <section className={search || !workButton ? "hidden" : "feed"}>
-      <h3>Work Feed</h3>
+      <h3>Jobs ready to work</h3>
       {filteredJobs[0] ? (
         <table>
           <thead>

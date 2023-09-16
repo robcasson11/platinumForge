@@ -26,7 +26,7 @@ const CollectionFeed = () => {
 
   return (
     <section className={search || !collectButton ? "hidden" : "feed"}>
-      <h3>Collection Feed</h3>
+      <h3>Jobs ready for collection</h3>
       {collectionsList[0] ? (
         <table>
           <thead>

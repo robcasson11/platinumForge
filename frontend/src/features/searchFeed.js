@@ -23,7 +23,7 @@ const SearchFeed = () => {
   return (
     <section className="feed">
       <form className="searchForm" onSubmit={(e) => e.preventDefault()}>
-        <label htmlFor="search">Search Posts</label>
+        <label htmlFor="search">Search Jobs</label>
         <br />
         <input
           id="search"
