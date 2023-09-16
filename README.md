@@ -2,7 +2,7 @@
 
 This is an in depth to-do list for a small business that repairs “items”. The "tasks" (or in this case "items") are displayed via feeds. The feeds determine which "items" to display based on either, what it needs, when it needs to be completed, whether it is completed or if it has been collected.
 
-To view the 'Brief' created for this app follow this link [](Brief.txt)
+[](Brief.txt)
 
 ![Alt text](Screenshots/1welcomeScreenShot.jpg)
 ![Alt text](Screenshots/2Form.jpg)
