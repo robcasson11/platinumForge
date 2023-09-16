@@ -4,28 +4,21 @@ This is an in depth to-do list for a small business that repairs “items”. Th
 
 [](Brief.txt)
 
-<img src="Screenshots/1welcomeScreenShot.jpg" width=50%>
-<img src="Screenshots/2Form.jpg" width=50%>
-<img src="Screenshots/3Dashboard.jpg" width=50%>
-<img src="Screenshots/4JobPage.jpg" width=50%>
-<img src="Screenshots/5QuotesPage.jpg" width=50%>
-<img src="Screenshots/6CollectionsFeed.jpg" width=50%>
-
 # Installing and Running
 
 Node v18 required to run.
 
 Clone the Repository
 
-$ cd platinumForge
+cd platinumForge
 
-$ cd backend
+cd backend
 
-$ npm install
+npm install
 
-$ touch .env
+touch .env
 
-$ copy the .env.example file text and paste into the created .env file you just created
+copy the .env.example file text and paste into the created .env file you just created
 
 Replace the DATABASE_URI with your own mongoDB URI
 
@@ -89,3 +82,12 @@ React:
   - useRef - To control the state of elements in a form (So a checkbox resets to un-checked if a user returns to add a second item)
 
 - Custom Hook UseWindowSize - To use screen dimensions in ternary statements that control the style attribute of elements
+
+# Screenshots
+
+<img src="Screenshots/1welcomeScreenShot.jpg" width=50%>
+<img src="Screenshots/2Form.jpg" width=50%>
+<img src="Screenshots/3Dashboard.jpg" width=50%>
+<img src="Screenshots/4JobPage.jpg" width=50%>
+<img src="Screenshots/5QuotesPage.jpg" width=50%>
+<img src="Screenshots/6CollectionsFeed.jpg" width=50%>
