@@ -5,12 +5,11 @@ This is an in depth to-do list for a small business that repairs “items”. Th
 [](Brief.txt)
 
 <img src="Screenshots/1welcomeScreenShot.jpg" width=50%>
-![Alt text](Screenshots/1welcomeScreenShot.jpg)
-![Alt text](Screenshots/2Form.jpg)
-![Alt text](Screenshots/3Dashboard.jpg)
-![Alt text](Screenshots/4JobPage.jpg)
-![Alt text](Screenshots/5QuotesPage.jpg)
-![Alt text](Screenshots/6CollectionsFeed.jpg)
+<img src="Screenshots/2Form.jpg" width=50%>
+<img src="Screenshots/3Dashboard.jpg" width=50%>
+<img src="Screenshots/4JobPage.jpg" width=50%>
+<img src="Screenshots/5QuotesPage.jpg" width=50%>
+<img src="Screenshots/6CollectionsFeed.jpg" width=50%>
 
 # Installing and Running
 
