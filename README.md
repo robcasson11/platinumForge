@@ -4,6 +4,7 @@ This is an in depth to-do list for a small business that repairs “items”. Th
 
 [](Brief.txt)
 
+<img src="Screenshots/1welcomeScreenShot.jpg" width=50%>
 ![Alt text](Screenshots/1welcomeScreenShot.jpg)
 ![Alt text](Screenshots/2Form.jpg)
 ![Alt text](Screenshots/3Dashboard.jpg)
