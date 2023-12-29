@@ -141,6 +141,15 @@ export const DataProvider = ({ children }) => {
       console.log(`Error with handle edit : ${err}`);
     }
   };
+
+  const clearDatabase = async () => {
+    try {
+      await api.delete("/jobs", {});
+    } catch (err) {
+      console.log(`Error with clear database : ${err}`);
+    }
+  };
+
   return (
     <DataContext.Provider
       value={{
@@ -171,6 +180,7 @@ export const DataProvider = ({ children }) => {
         setOrderButton,
         collectButton,
         setCollectButton,
+        clearDatabase,
       }}
     >
       {children}

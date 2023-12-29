@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import DataContext from "../context/DataContext";
 
 const HomePage = () => {
+  const { clearDatabase } = useContext(DataContext);
+  clearDatabase();
   return (
     <div className="home-page">
       <Link className="btn" to={`/form`}>

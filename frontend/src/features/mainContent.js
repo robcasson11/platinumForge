@@ -6,7 +6,7 @@ import DevData from "../data/devData";
 import api from "../api/jobs";
 
 const MainContent = () => {
-  const { search } = useContext(DataContext);
+  const { search, clearDatabase } = useContext(DataContext);
 
   const navigate = useNavigate();
 
@@ -22,13 +22,6 @@ const MainContent = () => {
     navigate("/dashBoard");
   };
 
-  const clearDatabase = async () => {
-    try {
-      await api.delete("/jobs", {});
-    } catch (err) {
-      console.log(`Error with clear database : ${err}`);
-    }
-  };
   return (
     <div className="main-content">
       <div className={search ? "hidden" : "devButtons"}>
